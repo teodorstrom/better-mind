@@ -1,1 +1,1 @@
-web: gunicorn better-mind.wsgi
+web: gunicorn bettermind.wsgi
