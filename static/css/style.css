@@ -1,0 +1,66 @@
+:root {
+    --lightblue: #87CEEB;
+    --white: #ffffff;
+    --darkgrey: #343a40;
+}
+
+body {
+    background-color: #fff !important;
+}
+
+/* navbar & logo*/
+
+.active {
+    color: var(--lightblue);
+    font-weight: 600;
+}
+
+#logo {
+    letter-spacing: 2px;
+    color: var(--lightblue);
+    font-weight: bold;
+    font-size: 23px;
+}
+
+#btn-signin {
+    margin-left: 15px;
+    border-color: var(--lightblue);
+    color: var(--lightblue);
+}
+
+#btn-signin:hover {
+    color:#343a40;
+    background-color: var(--lightblue);
+}
+
+
+/* buttons */
+.btn-primary {
+    background-color: transparent !important;
+    border-color: var(--lightblue) !important;
+    color: var(--lightblue) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--lightblue) !important;
+    border-color: var(--lightblue) !important;
+    color: var(--darkgrey) !important;
+}
+
+
+.card {
+    background-color: var(--darkgrey) !important;
+}
+
+.card-title, .card-text {
+    color: #ffffff !important;
+}
+
+.list-unstyled a {
+    color: var(--lightblue);
+}
+
+.list-unstyled a:hover {
+    text-decoration: underline;
+    color: var(--lightblue);
+}
