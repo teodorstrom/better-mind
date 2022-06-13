@@ -64,3 +64,24 @@ body {
     text-decoration: underline;
     color: var(--lightblue);
 }
+
+.fa-heart {
+    color: rgba(228, 94, 94, 0.979) !important;
+}
+
+.fa-comments {
+    color: var(--lightblue) !important;
+}
+
+#postdetail_likes {
+    size: 120%;
+}
+
+#black-card {
+    transition: 0.3s !important;
+}
+
+#black-card:hover {
+    transform: scaleY(1.5) !important;
+    transform-origin: bottom !important;
+}
