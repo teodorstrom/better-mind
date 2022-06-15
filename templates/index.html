@@ -19,17 +19,29 @@
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" id="logo" href="#!">Better | Mind <i class="fa-solid fa-leaf"></i></a>
+            <a class="navbar-brand" id="logo" href="{% url 'home' %}">Better | Mind <i class="fa-solid fa-leaf"></i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="{{ home }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">Webinars</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">Blog</a></li>
-                    <button class="btn btn-outline-primary my-2 my-sm-0" id="btn-signin" type="submit">Login / Sign
-                        Up</button>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" id="btn-signin" type="submit"><a href="{% url 'account_logout' %}" id="logout-btn">Logout</a></button>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" id="btn-signin" type="submit"
+                            href="{% url 'account_signup' %}">Register</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" id="btn-signin" type="submit"
+                            href="{% url 'account_login' %}">Login</button>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -55,17 +67,17 @@
                         <div class="small text-muted">June 12, 2022, 11:52 a.m.</div>
                         <strong class="text-secondary  "><i class="far fa-heart">6</i></strong>
                         <strong class="text-secondary"><i class="far fa-comments">6</i></strong>
-                            <a href="#!">
-                                <img class="card-img-top" alt="..." src="/media/Screenshot from 2022-05-23 23-31-02.png" />
-                                <h2 class="card-title">Featured Post</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                        Consequatur maiores nesciunt dolores repellendus sint quia molestias, natus
-                                        temporibus illum animi delectus provident aperiam eum asperiores quo accusamus.
-                                        Nihil, laboriosam sequi.
-                                </p>
-                            </a>
-                            <a class="btn btn-primary post-link" href="#">Read more
-                                →</a>
+                        <a href="#!">
+                            <img class="card-img-top" alt="..." src="/media/Screenshot from 2022-05-23 23-31-02.png" />
+                            <h2 class="card-title">Featured Post</h2>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Consequatur maiores nesciunt dolores repellendus sint quia molestias, natus
+                                temporibus illum animi delectus provident aperiam eum asperiores quo accusamus.
+                                Nihil, laboriosam sequi.
+                            </p>
+                        </a>
+                        <a class="btn btn-primary post-link" href="#">Read more
+                            →</a>
                     </div>
                 </div>
                 <!-- Nested row for non-featured blog posts-->
@@ -74,7 +86,7 @@
                         <!-- Blog post-->
                         {% for post in post_list %}
                         <a href="{%url 'post_detail' post.slug %}"><img class="card-img-top"
-                                src="{{ post.featured_image.url }}" alt="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" />
+                                src="{{ post.featured_image.url }}" alt="Image" />
                             <div class="card mb-4">
                                 <div class="card-body" id="blog-card">
                                     <div class="small text-muted">January 1, 2022</div>
@@ -93,17 +105,19 @@
                     </div>
                 </div>
                 <!-- Pagination-->
+                {% if is_paginated %}
                 <nav aria-label="Pagination">
                     <hr class="my-0" />
                     <ul class="pagination justify-content-center my-4">
-                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"
-                                aria-disabled="true">Newer</a></li>
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                        {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
+                {% endif %}
             </div>
             <!-- Side widgets-->
             <div class="col-lg-4">

@@ -47,6 +47,15 @@ body {
     color: var(--darkgrey) !important;
 }
 
+#logout-btn {
+    color: var(--lightblue) !important;
+}
+
+#logout-btn:hover {
+    text-decoration: none !important;
+    color: var(--darkgrey) !important;
+}
+
 
 .card {
     background-color: var(--darkgrey) !important;
