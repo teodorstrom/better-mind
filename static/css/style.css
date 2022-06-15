@@ -47,13 +47,16 @@ body {
     color: var(--darkgrey) !important;
 }
 
-#logout-btn {
+.account-btn {
     color: var(--lightblue) !important;
+    margin-left: 5px !important;
+    border-color: var(--lightblue) !important;
 }
 
-#logout-btn:hover {
+.account-btn:hover {
     text-decoration: none !important;
     color: var(--darkgrey) !important;
+    background-color: var(--lightblue) !important;
 }
 
 

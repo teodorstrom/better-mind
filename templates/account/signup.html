@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+
+
+<div class="d-flex justify-content-center">
+  <form class="signup" method="POST" action="{% url 'account_signup' %}">
+    <h1>{% trans "Register" %}</h1>
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" class="form-control" />
+    {% endif %}
+    <!--Submit button-->
+    <button type="submit" class="btn btn-primary btn-block mb-4">{% trans "Register" %}</button>
+    <!--Register-->
+    <div class="text-center">
+      <p>Already a member? <a href="{% url 'account_login' %}">Login</a></p>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
