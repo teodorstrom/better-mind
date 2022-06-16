@@ -1,98 +1,101 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <!-- Page header with logo and tagline-->
-    <header class="py-5 bg-light border-bottom mb-4">
-        <div class="container">
-            <div class="text-center my-5">
-                <h1 class="fw-bolder">Grow with <span id="logo" style="font-size:larger">Better | Mind</span></h1>
-                <p class="lead mb-0">A non-profit blog with focus on the most important, <span
-                        style="color: #87CEEB; font-weight: bold;">YOU</span>.</p>
-            </div>
-        </div>
-    </header>
-    <!-- Page content-->
+<!-- Page header with logo and tagline-->
+<header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
-        <div class="row">
-            <!-- Blog entries-->
-            <div class="col-lg-8">
-                <!-- Featured blog post-->
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="small text-muted">June 12, 2022, 11:52 a.m.</div>
-                        <strong class="text-secondary  "><i class="far fa-heart">6</i></strong>
-                        <strong class="text-secondary"><i class="far fa-comments">6</i></strong>
-                        <a href="">
-                            <img class="card-img-top" alt="..." src="/media/Screenshot from 2022-05-23 23-31-02.png" />
-                            <h2 class="card-title">Featured Post</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Consequatur maiores nesciunt dolores repellendus sint quia molestias, natus
-                                temporibus illum animi delectus provident aperiam eum asperiores quo accusamus.
-                                Nihil, laboriosam sequi.
-                            </p>
-                        </a>
-                        <a class="btn btn-primary post-link" href="#">Read more
-                            →</a>
-                    </div>
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Grow with <span id="logo" style="font-size:larger">Better | Mind</span></h1>
+            <p class="lead mb-0">A non-profit blog with focus on the most important, <span
+                    style="color: #87CEEB; font-weight: bold;">YOU</span>.</p>
+        </div>
+    </div>
+</header>
+<!-- Page content-->
+<div class="container">
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            <!-- Featured blog post-->
+            <h1>Most Readed Post</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="small text-muted">June 12, 2022, 11:52 a.m.</div>
+                    <a href="/my-first-blog-post/">
+                        <h2 class="card-title">My first blog post</h2>
+                    </a>
+                    <a class="btn btn-primary post-link" href="#">Read more
+                        →</a>
                 </div>
-                <!-- Nested row for non-featured blog posts-->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <!-- Blog post-->
-                        {% for post in post_list %}
-                        <a href="{%url 'post_detail' post.slug %}"><img class="card-img-top"
-                                src="{{ post.featured_image.url }}" alt="Image" />
-                            <div class="card mb-4">
-                                <div class="card-body" id="blog-card">
-                                    <div class="small text-muted">January 1, 2022</div>
-                                    <strong class="far fa-heart"> {{ post.number_of_likes }}</strong>
-                                    {% with comments.count as total.comments %}
-                                    <strong class="text-secondary"><i class="far fa-comments"></i></strong>
-                                    {{ total_comments }}
-                                    {% endwith %}
-                                    <h2 class="card-title h4">{{ post.title }}</h2>
-                                    <p class="card-text">{{ post.excerpt }}</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                        </a>
-                        {% endfor %}
-                    </div>
-                </div>
-                <!-- Pagination-->
-                {% if is_paginated %}
-                <nav aria-label="Pagination">
-                    <hr class="my-0" />
-                    <ul class="pagination justify-content-center my-4">
-                        {% if page_obj.has_previous %}
-                        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
-                        {% endif %}
-                        {% if page_obj.has_next %}
-                        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-                {% endif %}
             </div>
-            <!-- Side widgets-->
-            <div class="col-lg-4">
-                <!-- Search widget-->
-                <div class="card mb-4">
-                    <div class="card-header text-white">Search</div>
-                    <div class="card-body">
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Search..."
-                                aria-label="Enter search term..." aria-describedby="button-search" />
-                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+            <!-- Nested row for blog posts-->
+            <h1>Latest Posts</h1>
+            <div class="col-12 mt-3 left">
+                <div class="row">
+                    {% for post in post_list %}
+                    <div class="col-lg-6 col-md-4">
+                        <!-- Blog post-->
+                        <div class="card mb-4">
+                            {% if "placeholder" in post.featured_image.url %}
+                            <img class="card-img-top"
+                                src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
+                            {% else %}
+                            <a href="{%url 'post_detail' post.slug %}">
+                                <img class="card-img-top" src="{{ post.featured_image.url }}" alt="Image" />
+                                {% endif %}
+                                <div class="card">
+                                    <div class="card-body" id="blog-card">
+                                        <div class="small text-muted">January 1, 2022</div>
+                                        <strong class="far fa-heart"> {{ post.number_of_likes }}</strong>
+                                        {% with comments.count as total_comments %}
+                                        <strong class="far fa-comments">{{ total_comments }}</strong>
+                                        {% endwith %}
+                                        <h2 class="card-title h4">{{ post.title }}</h2>
+                                        <p class="card-text">{{ post.excerpt }}</p>
+                                        <a class="btn btn-primary" href="#!">Read more →</a>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                <!-- Side widget-->
-                <div class="card mb-4">
-                    <div class="card-header text-white">Stay tuned</div>
-                    <div class="card-body text-white">Special offers coming soon!</div>
+            </div>
+            <!-- Pagination-->
+            {% if is_paginated %}
+            <nav aria-label="Pagination">
+                <hr class="my-0" />
+                <ul class="pagination justify-content-center my-4">
+                    {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+            <!-- Search widget-->
+            <div class="card mb-4">
+                <div class="card-header text-white">Search</div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Under maintenance..."
+                            aria-label="Enter search term..." aria-describedby="button-search" name="search" disabled />
+                        <button class="btn btn-primary" id="button-search" type="button" value="search"
+                            disabled>Go!</button>
+                    </div>
                 </div>
+            </div>
+            <!-- Side widget-->
+            <div class="card mb-4">
+                <div class="card-header text-white">Stay tuned</div>
+                <div class="card-body text-white">Special offers coming soon!</div>
             </div>
         </div>
     </div>
+</div>
 {%endblock%}

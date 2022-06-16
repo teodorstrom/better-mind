@@ -8,10 +8,27 @@
     <div class="container">
         <div class="text-center my-5">
             <h1 class="fw-bolder align-left">{{ post.title }}</h1>
-            <strong class="far fa-heart" id="postdetail-likes"> {{ post.number_of_likes }}</strong>
-            {% with comments.count as total.comments %}
-            <strong class="text-secondary"><i class="far fa-comments"></i></strong>
-            {{ total_comments }}
+            <strong>
+                {% if user.is_authenticated %}
+                <form class="d-inline" action="{% url 'post_like' post.slug %}" method="post">
+                    {% csrf_token %}
+                    {% if liked %}
+                    
+                    <button type="submit" name="blogpost_id" value="{{ post.slug }}" class="btn-like"><i class="fas fa-heart"></i>{{ post.number_of_likes }}</button>
+                    {% else %}
+
+                    <button type="submit" name="blogpost_id" value="{{ post.slug }}" class="btn-like"><i class="far fa-heart"></i>{{ post.number_of_likes }}</button>
+                    
+                    {% endif %}
+                </form>
+                {% else %}
+                <strong class="far fa-heart" id="postdetail-likes">{{ post.number_of_likes }}</strong>
+                {% endif %}
+            </strong>
+            {% with comments.count as total_comments %}
+            <strong class="far fa-comments">
+                <!-- Our total_comments variable goes before the closing strong tag -->
+                {{ total_comments }}</strong>
             {% endwith %}
             <!-- Post Author-->
             <div class="text fst-italic mb-2">Uploaded by: <strong>{{ post.author }}</strong></div>
@@ -25,6 +42,7 @@
             <!-- Post content-->
             <article>
                 <!-- Post header-->
+
                 <header class="mb-4">
                     <!-- Post title-->
                     <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
@@ -45,7 +63,7 @@
                 </section>
             </article>
             <!-- Comments section-->
-            <section class="mb-5">
+            <section class="mb-5 form-control">
                 <h3>Comments</h3>
                 <!-- Total comments-->
                 {% for comment in comments %}
@@ -53,7 +71,6 @@
                     <div class="ms-3">
                         <div class="fw-bold font-weight-bold">{{ comment.name }}</div>
                         <span class="text-muted font-weight-normal">{{ comment.created_on }}</span>
-                        wrote:
                         {{ comment.body | linebreaks }}
                     </div>
                 </div>
@@ -61,23 +78,25 @@
                 <div class="card bg-light">
                     <div class="card-body">
                         {% if commented %}
-                    <div class="alert alert-success" role="alert">
-                        Your comment is awaiting approval
-                    </div>
-                    {% else %}
-                    {% if user.is_authenticated %}
-                    <!-- Single comment-->
-                    <h3>Leave a comment:</h3>
-                    <p>Posting as: {{ user.username }}</p>
-                    <form method="post" class="mb-4" style="margin-top: 1.3em;">
-                        
-                        <textarea name="body" required class="form-control" rows="3"
-                            placeholder="Leave a comment!"></textarea>
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-signup btn-lg">Submit</button>
-                    </form>
-                    {% endif %}
-                    {% endif %}
+                        <div class="alert alert-success" role="alert">
+                            Your comment is awaiting approval
+                        </div>
+                        {% else %}
+                        {% if user.is_authenticated %}
+                        <!-- Single comment-->
+                        <h3>Leave a comment:</h3>
+                        <p>Posting as: {{ user.username }}</p>
+                        <form method="post">
+
+                            <textarea name="body" required class="form-control mb-3" rows="3"
+                                placeholder="Leave a comment!"></textarea>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+                        </form>
+                        {% else %}
+                        <h4>Login to leave a comment!</h4>
+                        {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </section>
@@ -86,42 +105,20 @@
         <div class="col-lg-4">
             <!-- Search widget-->
             <div class="card mb-4">
-                <div class="card-header">Search</div>
+                <div class="card-header text-light">Search</div>
                 <div class="card-body">
                     <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Enter search term..."
-                            aria-label="Enter search term..." aria-describedby="button-search" />
-                        <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Categories widget-->
-            <div class="card mb-4">
-                <div class="card-header">Categories</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">Web Design</a></li>
-                                <li><a href="#!">HTML</a></li>
-                                <li><a href="#!">Freebies</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">JavaScript</a></li>
-                                <li><a href="#!">CSS</a></li>
-                                <li><a href="#!">Tutorials</a></li>
-                            </ul>
-                        </div>
+                        <input class="form-control" type="text" placeholder="Under maintenance..."
+                            aria-label="Enter search term..." aria-describedby="button-search" name="search" disabled />
+                        <button class="btn btn-primary" id="button-search" type="button" value="search"
+                            disabled>Go!</button>
                     </div>
                 </div>
             </div>
             <!-- Side widget-->
             <div class="card mb-4">
-                <div class="card-header">Side Widget</div>
-                <div class="card-body">You can put anything you want inside of these side widgets. They are easy to
-                    use, and feature the Bootstrap 5 card component!</div>
+                <div class="card-header text-white">Stay tuned</div>
+                <div class="card-body text-white">Special offers coming soon!</div>
             </div>
         </div>
     </div>

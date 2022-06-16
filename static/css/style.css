@@ -6,6 +6,7 @@
 
 body {
     background-color: #fff !important;
+    height: 100vh;
 }
 
 /* navbar & logo*/
@@ -81,12 +82,15 @@ body {
     color: rgba(228, 94, 94, 0.979) !important;
 }
 
-.fa-comments {
-    color: var(--lightblue) !important;
+.btn-like {
+    color: rgba(228, 94, 94, 0.979);
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
 
-#postdetail_likes {
-    size: 120%;
+.fa-comments {
+    color: var(--lightblue) !important;
 }
 
 #black-card {

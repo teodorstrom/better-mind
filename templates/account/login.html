@@ -8,9 +8,9 @@
 {% block content %}
 
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center my-auto">
   <form class="login" method="POST" action="{% url 'account_login' %}">
-    <h1>{% trans "Sign In" %}</h1>
+    <h1 class="text-center">{% trans "Sign In" %}</h1>
     {% csrf_token %}
     {{ form.as_p }}
     {% if redirect_field_value %}
