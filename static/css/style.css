@@ -60,6 +60,14 @@ body {
     background-color: var(--lightblue) !important;
 }
 
+.btn-like {
+    color: rgba(228, 94, 94, 0.979);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* index and post_detail */
 
 .card {
     background-color: var(--darkgrey) !important;
@@ -80,13 +88,6 @@ body {
 
 .fa-heart {
     color: rgba(228, 94, 94, 0.979) !important;
-}
-
-.btn-like {
-    color: rgba(228, 94, 94, 0.979);
-    border: none;
-    background: transparent;
-    cursor: pointer;
 }
 
 .fa-comments {

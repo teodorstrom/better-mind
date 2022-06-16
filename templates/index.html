@@ -16,7 +16,7 @@
     <div class="row">
         <!-- Blog entries-->
         <div class="col-lg-8">
-            <!-- Featured blog post-->
+            <!-- Most Readed blog post-->
             <h1>Most Readed Post</h1>
             <div class="card mb-4">
                 <div class="card-body">
@@ -24,7 +24,7 @@
                     <a href="/my-first-blog-post/">
                         <h2 class="card-title">My first blog post</h2>
                     </a>
-                    <a class="btn btn-primary post-link" href="#">Read more
+                    <a class="btn btn-primary post-link" href="/my-first-blog-post/">Read more
                         →</a>
                 </div>
             </div>
@@ -45,11 +45,8 @@
                                 {% endif %}
                                 <div class="card">
                                     <div class="card-body" id="blog-card">
-                                        <div class="small text-muted">January 1, 2022</div>
+                                        <div class="small text-muted">{{ post.created_on }}</div>
                                         <strong class="far fa-heart"> {{ post.number_of_likes }}</strong>
-                                        {% with comments.count as total_comments %}
-                                        <strong class="far fa-comments">{{ total_comments }}</strong>
-                                        {% endwith %}
                                         <h2 class="card-title h4">{{ post.title }}</h2>
                                         <p class="card-text">{{ post.excerpt }}</p>
                                         <a class="btn btn-primary" href="#!">Read more →</a>
